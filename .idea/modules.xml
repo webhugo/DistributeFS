@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Common.iml" filepath="$PROJECT_DIR$/.idea/modules/Common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Common_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Common_main.iml" group="Common" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Common_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Common_test.iml" group="Common" />
+      <module fileurl="file://$PROJECT_DIR$/DistributeFS.iml" filepath="$PROJECT_DIR$/DistributeFS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FileClient.iml" filepath="$PROJECT_DIR$/.idea/modules/FileClient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FileClient_main.iml" filepath="$PROJECT_DIR$/.idea/modules/FileClient_main.iml" group="FileClient" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FileClient_test.iml" filepath="$PROJECT_DIR$/.idea/modules/FileClient_test.iml" group="FileClient" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FileServer.iml" filepath="$PROJECT_DIR$/.idea/modules/FileServer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FileServer_main.iml" filepath="$PROJECT_DIR$/.idea/modules/FileServer_main.iml" group="FileServer" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FileServer_test.iml" filepath="$PROJECT_DIR$/.idea/modules/FileServer_test.iml" group="FileServer" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/StorageNode.iml" filepath="$PROJECT_DIR$/.idea/modules/StorageNode.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/StorageNode_main.iml" filepath="$PROJECT_DIR$/.idea/modules/StorageNode_main.iml" group="StorageNode" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/StorageNode_test.iml" filepath="$PROJECT_DIR$/.idea/modules/StorageNode_test.iml" group="StorageNode" />
+    </modules>
+  </component>
+</project>

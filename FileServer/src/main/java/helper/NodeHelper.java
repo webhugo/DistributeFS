@@ -1,8 +1,6 @@
 package helper;
 
-import Config.MainInfo;
 import entity.NodeInfo;
-import entity.RequestBackup;
 import toStorageNode.Schedule;
 
 import java.util.Iterator;
@@ -15,20 +13,19 @@ import java.util.Map;
 public class NodeHelper {
 
     public static void wirteNodeToMap(NodeInfo registerInfo) {
+        System.out.println("registerInfo: " + registerInfo);
         //****************************************
-        System.out.print("registerInfo:");
-        System.out.println(registerInfo);
-        Schedule schedule = MainInfo.scheduleMap.get(registerInfo.getNodeName());
+        Schedule schedule = Config.scheduleMap.get(registerInfo.getNodeName());
         schedule = schedule == null ? new Schedule() : schedule;
         schedule.invoke(registerInfo.getNodeName());
-        MainInfo.scheduleMap.put(registerInfo.getNodeName(), schedule);
+        Config.scheduleMap.put(registerInfo.getNodeName(), schedule);
         //****************************************
-        Map<String, NodeInfo> nodeInfoMap = MainInfo.nodeInfoMap.get("node");
+        Map<String, NodeInfo> nodeInfoMap = Config.nodeInfoMap.get("node");
         nodeInfoMap.put(registerInfo.getNodeName(), registerInfo);
     }
 
     public static NodeInfo getSuitableNode() {
-        Map<String, NodeInfo> nodeInfoMap = MainInfo.nodeInfoMap.get("node");
+        Map<String, NodeInfo> nodeInfoMap = Config.nodeInfoMap.get("node");
         String name = null;
         Double minVolume = -1.0;
 
@@ -42,9 +39,9 @@ public class NodeHelper {
         return nodeInfoMap.get(name);
     }
 
-    public static NodeInfo getBackupNode(RequestBackup requestBackup) {
-        String nodeName = requestBackup.getNodeName();
-        Map<String, NodeInfo> nodeInfoMap = MainInfo.nodeInfoMap.get("node");
+    public static NodeInfo getBackupNode(NodeInfo nodeInfo) {
+        String nodeName = nodeInfo.getNodeName();
+        Map<String, NodeInfo> nodeInfoMap = Config.nodeInfoMap.get("node");
         String name = null;
         Double minVolume = -1.0;
 
@@ -60,7 +57,7 @@ public class NodeHelper {
     }
 
     public static void deleteNode(String nodeName) {
-        Map<String, NodeInfo> nodeInfoMap = MainInfo.nodeInfoMap.get("node");
+        Map<String, NodeInfo> nodeInfoMap = Config.nodeInfoMap.get("node");
         Iterator it = nodeInfoMap.keySet().iterator();
         while (it.hasNext()) {
             Object key = it.next();

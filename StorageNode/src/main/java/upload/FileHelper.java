@@ -13,28 +13,6 @@ import java.util.UUID;
  */
 public class FileHelper {
     public static void writeRecord(FileInfo fileInfo) {
-        try {
-            PrintWriter pw = new PrintWriter(new FileOutputStream(Config.fileRecordName, true));
-            StringBuilder sb = new StringBuilder();
-            sb.append("|");
-            sb.append(fileInfo.getUuid());
-            sb.append("|");
-            sb.append(fileInfo.getName());
-            sb.append("|");
-            sb.append(fileInfo.getSize());
-            sb.append("|");
-            sb.append(fileInfo.getMd5());
-            sb.append("|");
-            sb.append(fileInfo.getMainNodeName());
-            sb.append("|");
-            if (fileInfo.getBackupNodeName() != null)
-                sb.append(fileInfo.getBackupNodeName());
-            sb.append("|");
-
-            pw.println(sb.toString());
-            pw.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        Config.fileInfoMap.put(fileInfo.getUuid(), fileInfo);
     }
 }

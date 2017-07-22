@@ -1,6 +1,7 @@
 package bootstrap;
 
 
+import entity.FileInfo;
 import utils.PropsUtil;
 
 import java.io.FileReader;
@@ -20,14 +21,16 @@ public class Config {
     public static String Volume = null;
     public static String FileServerIP = null;
     public static Integer FileServerPort = null;
-    public static String NodeIp;
+    public static String NodeIp = null;
     public static String remainVolume = null;
 
 
-    public static String fileRecordName = "fileRecord1.md";
+    public static String fileRecordName = "fileRecord1.txt";
     public static Integer fileCount = 0;
 
-    public static void setPropertiesName(String pName,String rName) {
+    public static Map<String, FileInfo> fileInfoMap = new HashMap<>();
+
+    public static void setPropertiesName(String pName, String rName) {
         propertiesName = pName;
         fileRecordName = rName;
         init();
@@ -43,23 +46,6 @@ public class Config {
         FileServerIP = ps.getProperty("FileServerIP");
         FileServerPort = Integer.parseInt(ps.getProperty("FileServerPort"));
         remainVolume = ps.getProperty("remainVolume");
-
-        try {
-            FileReader in = new FileReader(fileRecordName);
-            LineNumberReader reader = new LineNumberReader(in);
-            //去除前两行
-            reader.readLine();
-            reader.readLine();
-            String strLine = "";
-            while (strLine != null) {
-                fileCount++;
-                strLine = reader.readLine();
-            }
-            reader.close();
-            in.close();
-        } catch (java.io.IOException e) {
-            e.printStackTrace();
-        }
     }
 
 }

@@ -3,7 +3,6 @@ package TcpCommunication;
 import entity.*;
 import helper.FileHelper;
 import helper.NodeHelper;
-import utils.JsonUtils;
 
 import java.io.*;
 import java.net.Socket;
@@ -27,30 +26,29 @@ public class ServerThread implements Runnable {
             ObjectOutputStream out = new ObjectOutputStream(client.getOutputStream());
             Message message = (Message) in.readObject();
             switch (message.getType()) {
-                case GetNode://来自客户端获取可用节点
+                case NodeInfo://来自客户端获取可用节点
                     NodeInfo nodeInfo = NodeHelper.getSuitableNode();
-                    System.out.print("nodeinfo: ");
-                    System.out.println(nodeInfo);
                     out.writeObject(nodeInfo);
                     break;
+                case DownloadNodeInfo:
+                    String uuid = message.getExtra();
+                    FileInfo fileInfo1 = FileHelper.getRecord(uuid);
+                    System.out.println("fileInfo1: "+fileInfo1);
+                    out.writeObject(fileInfo1);
+                    out.flush();
+                    break;
+                case Delete:
+                    break;
                 case Backup://来自子节点获取备份节点
-                    RequestBackup requestBackup = (RequestBackup) message;
-                    System.out.print("requestBackup: ");
-                    System.out.println(requestBackup);
+                    NodeInfo requestBackup = (NodeInfo) message;
                     NodeInfo nodeInfo1 = NodeHelper.getBackupNode(requestBackup);
-                    System.out.print("nodeinfo1: ");
-                    System.out.println(nodeInfo1);
                     out.writeObject(nodeInfo1);
                     break;
                 case TellFileInfo:
                     FileInfo fileInfo = (FileInfo) message;
-                    System.out.print("tellfileInfo:");
-                    System.out.println(fileInfo);
+                    System.out.println("tellFileInfo: " + fileInfo);
                     FileHelper.writeRecord(fileInfo);
                     break;
-                case DownloadInfo:
-                    String uuid = message.getExtra();
-                    FileHelper.getRecord(uuid);
             }
         } catch (Exception e) {
             e.printStackTrace();

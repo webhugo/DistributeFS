@@ -1,5 +1,6 @@
-package Config;
+package helper;
 
+import entity.FileInfo;
 import entity.NodeInfo;
 import toStorageNode.Schedule;
 import utils.PropsUtil;
@@ -12,15 +13,17 @@ import java.util.Properties;
 /**
  * Created by webhugo on 17-7-14.
  */
-public class MainInfo {
+public class Config {
     public static String recordFile = null;
     public static Integer server_tcp_port;
     public static Integer server_udp_port;
+
     public static Map<String, Map<String, NodeInfo>> nodeInfoMap = new HashMap<>();
     public static Map<String, Schedule> scheduleMap = new HashMap<>();
+    public static Map<String, FileInfo> fileInfoMap = new HashMap<>();
 
     static {
-        nodeInfoMap.put("node",new HashMap<>());
+        nodeInfoMap.put("node", new HashMap<>());
         Properties ps = PropsUtil.loadProps("config.properties");
         recordFile = ps.getProperty("recordFile");
         server_tcp_port = Integer.valueOf(ps.getProperty("server_tcp_port"));

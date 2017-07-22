@@ -1,3 +1,4 @@
+import entity.FileInfo;
 import entity.MessageType;
 import entity.NodeInfo;
 import toFileServer.ServerConnect;
@@ -10,9 +11,13 @@ import java.net.Socket;
  * Created by webhugo on 17-7-14.
  */
 public class Client {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         NodeInfo nodeInfo = ServerConnect.getNodeInfo();
-//        UploadClient.upload(nodeInfo, "a.txt", MessageType.Upload);
-        ServerConnect.getDownloadNodeInfo("736fbb3e-ca30-49c3-9a5e-a83153cfbf4c");
+        String uuid = UploadClient.upload(nodeInfo, "a.txt", MessageType.Upload, null);
+        System.out.println("uuid: "+uuid);
+        Thread.sleep(1000L);
+        FileInfo fileInfo = ServerConnect.getDownloadNodeInfo(uuid);
+        System.out.println("fileInfo1: "+fileInfo);
+        ServerConnect.download(fileInfo);
     }
 }

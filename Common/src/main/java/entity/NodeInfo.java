@@ -5,13 +5,15 @@ import java.io.Serializable;
 /**
  * Created by webhugo on 17-7-14.
  */
-public class NodeInfo extends Message{
+public class NodeInfo extends Message {
+    private String nodeName;
     private String nodeIp;
     private Integer nodePort;
+
     private String volume;
-    private String rootFolder;
-    private String nodeName;
     private String remainVolume;
+
+    private String rootFolder;
     private Integer fileCount;
 
     public Integer getFileCount() {

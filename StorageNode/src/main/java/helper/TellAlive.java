@@ -20,7 +20,7 @@ public class TellAlive {
     public static void sendUDP() throws IOException {
         NodeInfo nodeInfo = new NodeInfo();
         nodeInfo.setNodeIp(Config.NodeIp);
-        nodeInfo.setType(MessageType.Register);
+        nodeInfo.setType(MessageType.Survival);
         nodeInfo.setNodeName(Config.NodeName);
         nodeInfo.setNodePort(Config.NodePort);
         nodeInfo.setVolume(Config.Volume);
@@ -39,7 +39,7 @@ public class TellAlive {
     public static void main(String[] args) {
         NodeInfo nodeInfo = new NodeInfo();
         nodeInfo.setNodeIp(Config.NodeIp);
-        nodeInfo.setType(MessageType.Register);
+        nodeInfo.setType(MessageType.Survival);
         System.out.println(nodeInfo);
         System.out.println(JsonUtils.toJson(nodeInfo).length());
     }

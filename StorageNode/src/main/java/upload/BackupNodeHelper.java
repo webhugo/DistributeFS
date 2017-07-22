@@ -1,15 +1,12 @@
 package upload;
 
 import bootstrap.Config;
-import entity.BackupNodeInfo;
+import entity.FileInfo;
 import entity.MessageType;
 import entity.NodeInfo;
-import entity.RequestBackup;
-import utils.JsonUtils;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Scanner;
 
 /**
  * Created by webhugo on 17-7-16.
@@ -18,7 +15,7 @@ public class BackupNodeHelper {
     private static NodeInfo askForBackupNode() {
         try {
             Socket socket = new Socket(Config.FileServerIP, 8080);
-            RequestBackup requestBackup = new RequestBackup();
+            NodeInfo requestBackup = new NodeInfo();
             requestBackup.setNodeName(Config.NodeName);
             requestBackup.setType(MessageType.Backup);
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
@@ -31,14 +28,14 @@ public class BackupNodeHelper {
         }
     }
 
-    public static String sendToBackNode(String fileName) {
+    public static NodeInfo sendToBackNode(FileInfo fileInfo, String filepath) {
         NodeInfo nodeInfo = askForBackupNode();
-        System.out.println(nodeInfo);
         try {
-            UploadClient.upload(nodeInfo, fileName, MessageType.Backup);
+            fileInfo.setType(MessageType.Backup);
+            UploadClient.upload(nodeInfo, filepath, MessageType.Backup, fileInfo);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return nodeInfo.getNodeName();
+        return nodeInfo;
     }
 }

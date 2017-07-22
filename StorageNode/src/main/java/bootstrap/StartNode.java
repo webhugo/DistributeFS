@@ -1,8 +1,7 @@
 package bootstrap;
 
-import com.sun.javafx.scene.NodeHelper;
 import helper.Schedule;
-import upload.UploadServer;
+import upload.TCPService;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -20,7 +19,7 @@ public class StartNode {
         Config.setPropertiesName(strings[1], strings1[1]);
         //定时任务向服务器发送udp报文
         Schedule.go();
-        //多线程并发上传文件
+        //多线程并发上传文件和下载文件
         ServerSocket socket = new ServerSocket(Config.NodePort);
         new Thread(() -> {
             while (true) {
@@ -29,7 +28,7 @@ public class StartNode {
                     Socket client = socket.accept();
                     new Thread(() -> {
 
-                        UploadServer.receiveFile(client);
+                        TCPService.accept(client);
 
                     }).start();
                 } catch (IOException e) {

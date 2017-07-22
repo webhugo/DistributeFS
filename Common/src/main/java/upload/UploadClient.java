@@ -18,18 +18,29 @@ import java.security.MessageDigest;
  * storage --> storage(备份)
  */
 public class UploadClient {
-    public static void upload(NodeInfo nodeInfo, String fileName, MessageType type) throws IOException {
-        System.out.print("upload client nodeInfo: ");
-        System.out.println(nodeInfo);
+    /**
+     * @param nodeInfo
+     * @param fileName
+     * @param type     upload or backup
+     * @throws IOException
+     */
+    public static String upload(NodeInfo nodeInfo, String fileName, MessageType type, FileInfo fileIf) throws IOException {
         Socket client = new Socket(nodeInfo.getNodeIp(), nodeInfo.getNodePort());
         BufferedReader br = new BufferedReader(new FileReader(fileName));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
         //****************************************
-        FileInfo fileInfo = new FileInfo();
-        fileInfo.setName(fileName);
-        fileInfo.setSize(new File(fileName).length());
-        fileInfo.setMd5(getMd5ByFile(new File(fileName)));
-        fileInfo.setType(type);
+        File file = new File(fileName);
+        FileInfo fileInfo = null;
+        if (fileIf == null) {
+            fileInfo = new FileInfo();
+            fileInfo.setName(fileName);
+            fileInfo.setSize(file.length());
+            fileInfo.setMd5(getMd5ByFile(file));
+            fileInfo.setType(type);
+            fileInfo.setMainNodeIp(nodeInfo.getNodeName());
+        } else
+            fileInfo = fileIf;
+
         bw.write(JsonUtils.toJson(fileInfo));
         bw.newLine();
         //****************************************
@@ -41,11 +52,14 @@ public class UploadClient {
         }
         client.shutdownOutput();
         //****************************************
-        //接受反馈
-        BufferedReader brClient = new BufferedReader(new InputStreamReader(client.getInputStream()));
-        String feedback = brClient.readLine();
-        System.out.println(feedback);
         br.close();
+        //接受反馈
+        if (type.equals(MessageType.Upload)) {
+            BufferedReader brClient = new BufferedReader(new InputStreamReader(client.getInputStream()));
+            String Uuuid = brClient.readLine();
+            return Uuuid;
+        }
+        return null;
     }
 
     private static String getMd5ByFile(File file) {

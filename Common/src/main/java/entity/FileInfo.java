@@ -8,23 +8,41 @@ public class FileInfo extends Message{
     private Long size;
     private String md5;
     private String uuid;
-    private String mainNodeName;
-    private String backupNodeName;
+    private String mainNodeIp;
+    private Integer mainNodePort;
+    private String backupNodeIp;
+    private Integer backupNodePort;
 
-    public String getMainNodeName() {
-        return mainNodeName;
+    public Integer getMainNodePort() {
+        return mainNodePort;
     }
 
-    public void setMainNodeName(String mainNodeName) {
-        this.mainNodeName = mainNodeName;
+    public void setMainNodePort(Integer mainNodePort) {
+        this.mainNodePort = mainNodePort;
     }
 
-    public String getBackupNodeName() {
-        return backupNodeName;
+    public Integer getBackupNodePort() {
+        return backupNodePort;
     }
 
-    public void setBackupNodeName(String backupNodeName) {
-        this.backupNodeName = backupNodeName;
+    public void setBackupNodePort(Integer backupNodePort) {
+        this.backupNodePort = backupNodePort;
+    }
+
+    public String getBackupNodeIp() {
+        return backupNodeIp;
+    }
+
+    public void setBackupNodeIp(String backupNodeIp) {
+        this.backupNodeIp = backupNodeIp;
+    }
+
+    public String getMainNodeIp() {
+        return mainNodeIp;
+    }
+
+    public void setMainNodeIp(String mainNodeIp) {
+        this.mainNodeIp = mainNodeIp;
     }
 
     public String getUuid() {

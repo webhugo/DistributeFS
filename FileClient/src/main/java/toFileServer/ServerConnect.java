@@ -76,4 +76,19 @@ public class ServerConnect {
         }
 
     }
+
+
+    public static void delete(FileInfo fileInfo) throws IOException {
+        Socket client1 = new Socket(fileInfo.getMainNodeIp(), fileInfo.getMainNodePort());
+        Socket client2 = new Socket(fileInfo.getBackupNodeIp(), fileInfo.getBackupNodePort());
+        fileInfo.setType(MessageType.Delete);
+        BufferedWriter bwServer1 = new BufferedWriter(new OutputStreamWriter(client1.getOutputStream()));
+        BufferedWriter bwServer2 = new BufferedWriter(new OutputStreamWriter(client2.getOutputStream()));
+        bwServer1.write(JsonUtils.toJson(fileInfo));
+        bwServer1.newLine();
+        bwServer1.flush();
+        bwServer2.write(JsonUtils.toJson(fileInfo));
+        bwServer2.newLine();
+        bwServer2.flush();
+    }
 }

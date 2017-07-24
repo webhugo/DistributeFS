@@ -87,6 +87,13 @@ public class TCPService {
                 client.shutdownOutput();
                 //****************************************
 
+            } else if (message.getType().equals(MessageType.Delete)) {
+                FileInfo fileInfo = JsonUtils.parse(str, FileInfo.class);
+                String filepath = Config.RootFolder + "/" + fileInfo.getUuid();
+                File file = new File(filepath);
+                if (file.exists()) {
+                    file.delete();
+                }
             }
         } catch (Exception e) {
 

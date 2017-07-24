@@ -19,5 +19,7 @@ public class Client {
         FileInfo fileInfo = ServerConnect.getDownloadNodeInfo(uuid);
         System.out.println("fileInfo1: "+fileInfo);
         ServerConnect.download(fileInfo);
+        Thread.sleep(3000L);
+        ServerConnect.delete(fileInfo);
     }
 }
